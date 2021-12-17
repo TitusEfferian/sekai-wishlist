@@ -1,4 +1,5 @@
 import { Card, Col, List, Row, Space } from "antd";
+import Image from "next/image";
 import { useSongs } from "../../../pages";
 
 const { Meta } = Card;
@@ -13,9 +14,24 @@ const Songs = () => {
           grid={{ xl: 4, xxl: 4, lg: 4, md: 2, sm: 1, xs: 1, gutter: 8 }}
           dataSource={song_list}
           renderItem={(item) => (
-            <List.Item>
+            <List.Item key={item.id}>
               <Card
-                cover={<img alt="example" src={item.thumbnail} />}
+                cover={
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Image
+                      height={200}
+                      width={324}
+                      alt="example"
+                      src={item.thumbnail}
+                    />
+                  </div>
+                }
                 hoverable
               >
                 <Meta title={item.creator} description={item.title} />

@@ -5,8 +5,12 @@ const Header = () => {
     <PageHeader
       ghost={false}
       extra={[
-        <Button type="default">Register</Button>,
-        <Button type="primary">Login</Button>,
+        <Button key={"register"} type="default">
+          Register
+        </Button>,
+        <Button key="login" type="primary">
+          Login
+        </Button>,
       ]}
       title="PJ Sekai Song Wishlist"
     />
