@@ -12,6 +12,7 @@
     "cross-env": "^7.0.2",
     "dayjs": "1.8.28",
     "esm": "^3.2.25",
+    "firebase-admin": "^10.0.1",
     "next": "latest",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.5.1",
