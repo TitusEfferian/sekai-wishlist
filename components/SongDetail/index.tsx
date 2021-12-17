@@ -1,17 +1,16 @@
 import { Col, Row } from "antd";
 import dynamic from "next/dynamic";
+import { useSongDetail } from "../../pages/[id]";
 
 const Header = dynamic(() => import("./Header"));
 const SongDetail = () => {
+  const { video_url } = useSongDetail();
+  console.log(video_url);
   return (
     <>
       <Header />
       <Row align="middle" justify="center">
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/sHnvEsNU1X0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`,
-          }}
-        ></div>
+        <iframe width="560" height="316" src={video_url}></iframe>
       </Row>
     </>
   );

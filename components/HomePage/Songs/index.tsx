@@ -1,5 +1,6 @@
 import { Card, Col, List, Row, Space } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 import { useSongs } from "../../../pages";
 
 const { Meta } = Card;
@@ -15,27 +16,29 @@ const Songs = () => {
           dataSource={song_list}
           renderItem={(item) => (
             <List.Item key={item.id}>
-              <Card
-                cover={
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Image
-                      height={200}
-                      width={324}
-                      alt="example"
-                      src={item.thumbnail}
-                    />
-                  </div>
-                }
-                hoverable
-              >
-                <Meta title={item.creator} description={item.title} />
-              </Card>
+              <Link href={`/${item.id}`} passHref>
+                <Card
+                  cover={
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Image
+                        height={200}
+                        width={324}
+                        alt="example"
+                        src={item.thumbnail}
+                      />
+                    </div>
+                  }
+                  hoverable
+                >
+                  <Meta title={item.creator} description={item.title} />
+                </Card>
+              </Link>
             </List.Item>
           )}
         />
