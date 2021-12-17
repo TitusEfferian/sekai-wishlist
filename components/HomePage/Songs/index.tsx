@@ -1,7 +1,9 @@
+import { HeartOutlined } from "@ant-design/icons";
 import { Card, Col, List, Row, Space } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useSongs } from "../../../pages";
+import HeartActions from "./HeartActions";
 
 const { Meta } = Card;
 
@@ -14,9 +16,9 @@ const Songs = () => {
         <List
           grid={{ xl: 4, xxl: 4, lg: 4, md: 2, sm: 1, xs: 1, gutter: 8 }}
           dataSource={song_list}
-          renderItem={(item) => (
-            <List.Item key={item.id}>
-              <Link href={`/${item.id}`} passHref>
+          renderItem={(_, index) => (
+            <List.Item key={song_list[index].id}>
+              <Link href={`/${song_list[index].id}`} passHref>
                 <Card
                   cover={
                     <div
@@ -30,13 +32,16 @@ const Songs = () => {
                         height={200}
                         width={324}
                         alt="example"
-                        src={item.thumbnail}
+                        src={song_list[index].thumbnail}
                       />
                     </div>
                   }
                   hoverable
                 >
-                  <Meta title={item.creator} description={item.title} />
+                  <Space direction="horizontal">
+                    <Meta title={song_list[index].creator} description={song_list[index].title} />
+                    <HeartActions index={index} />
+                  </Space>
                 </Card>
               </Link>
             </List.Item>
