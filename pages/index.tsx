@@ -21,7 +21,7 @@ export function useSongs() {
   return useContext(SongsContext);
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const firebase = await (await import("../firebase/server")).default;
   const db = firebase.firestore();
   const data = await db.collection("songs").get();
