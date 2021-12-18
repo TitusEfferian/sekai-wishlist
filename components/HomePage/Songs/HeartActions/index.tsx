@@ -12,6 +12,7 @@ import {
 } from "react";
 import { useSongs } from "../../../../pages";
 import dynamic from "next/dynamic";
+import { useCurrentSong } from "..";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -22,8 +23,8 @@ const HeartDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
   () => {}
 );
 
-const HeartIcons = ({ index }) => {
-  const songs = useSongs();
+const HeartIcons = () => {
+  const {likes} = useCurrentSong();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -41,7 +42,7 @@ const HeartIcons = ({ index }) => {
       <HeartContext.Provider value={showModal}>
         <Space size={"small"} align="center" direction="vertical">
           <DynamicHeartIcons />
-          <Typography.Paragraph>{songs[index].likes}</Typography.Paragraph>
+          <Typography.Paragraph>{likes}</Typography.Paragraph>
           <Modal
             onCancel={(e) => {
               e.preventDefault();
