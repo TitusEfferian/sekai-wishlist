@@ -7,7 +7,7 @@ const AntOutlined = () => {
   return (
     <HeartOutlined
       onClick={(e) => {
-          e.preventDefault();
+        e.preventDefault();
         if (!isLoggedIn) {
           setShowModal(true);
         }

@@ -1,6 +1,6 @@
 import firebase from "../../../../firebase/client";
 import "firebase/auth";
-import 'firebase/firestore'
+import "firebase/firestore";
 import { Button, Modal, Space, Typography } from "antd";
 import {
   createContext,
@@ -42,16 +42,30 @@ const HeartIcons = ({ index }) => {
         <Space size={"small"} align="center" direction="vertical">
           <DynamicHeartIcons />
           <Typography.Paragraph>{songs[index].likes}</Typography.Paragraph>
-          <Modal onCancel={(e)=>{e.preventDefault();setShowModal(false)}} title="hell" visible={showModal} footer={null}>
+          <Modal
+            onCancel={(e) => {
+              e.preventDefault();
+              setShowModal(false);
+            }}
+            title="hell"
+            visible={showModal}
+            footer={null}
+          >
             <Space>
               <Button
                 onClick={async (e) => {
                   e.preventDefault();
-                  const {additionalUserInfo, user} = await firebase.auth().signInWithPopup(provider);
-                  if(additionalUserInfo.isNewUser) {
-                    await firebase.firestore().collection('users').doc(user.uid).set({
-                      song_likes: []
-                    });
+                  const { additionalUserInfo, user } = await firebase
+                    .auth()
+                    .signInWithPopup(provider);
+                  if (additionalUserInfo.isNewUser) {
+                    await firebase
+                      .firestore()
+                      .collection("users")
+                      .doc(user.uid)
+                      .set({
+                        song_likes: [],
+                      });
                   }
                   setShowModal(false);
                 }}
