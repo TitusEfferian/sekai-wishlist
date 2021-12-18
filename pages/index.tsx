@@ -4,7 +4,13 @@ import { createContext, useContext } from "react";
 const HomePage = dynamic(() => import("../components/HomePage"));
 
 const SongsContext = createContext<
-  { id: string; creator: string; title: string; thumbnail: string, likes:number }[]
+  {
+    id: string;
+    creator: string;
+    title: string;
+    thumbnail: string;
+    likes: number;
+  }[]
 >([]);
 
 const Home = ({ songs }) => {
@@ -34,7 +40,7 @@ export async function getStaticProps() {
           creator,
           title,
           thumbnail,
-          likes
+          likes,
         };
       }),
     },

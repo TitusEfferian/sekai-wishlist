@@ -39,7 +39,10 @@ const Songs = () => {
                   hoverable
                 >
                   <Space direction="horizontal">
-                    <Meta title={song_list[index].creator} description={song_list[index].title} />
+                    <Meta
+                      title={song_list[index].creator}
+                      description={song_list[index].title}
+                    />
                     <HeartActions index={index} />
                   </Space>
                 </Card>
