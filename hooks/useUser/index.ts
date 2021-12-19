@@ -13,6 +13,8 @@ const useUser = () => {
           uid: user.uid,
         });
         setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
     });
   }, []);

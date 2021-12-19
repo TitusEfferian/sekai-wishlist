@@ -37,7 +37,7 @@ const DynamicHeartIcons = () => {
       handleFetchAsync();
     }
   }, [id, user.uid, isLoggedIn, localLikes]);
-  if (isLikes) {
+  if (isLikes && isLoggedIn) {
     return <AntHeartFilled />;
   }
   return <AntOutlined />;

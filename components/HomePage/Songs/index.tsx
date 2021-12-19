@@ -47,7 +47,7 @@ const Songs = () => {
                   }
                   hoverable
                 >
-                  <Space direction="horizontal">
+                  <Space direction="horizontal" size={60}>
                     <Meta
                       title={song_list[index].creator}
                       description={song_list[index].title}
