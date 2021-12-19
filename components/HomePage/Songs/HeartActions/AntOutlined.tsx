@@ -1,12 +1,13 @@
 import { HeartOutlined } from "@ant-design/icons";
-import { useHeartDispatch, useLocalLikesDispatch } from ".";
+import {  useLocalLikesDispatch } from ".";
 import useUser from "../../../../hooks/useUser";
 import firebase from "../../../../firebase/client";
 import "firebase/firestore";
 import { useCurrentSong } from "..";
+import { useShowModalDispatch } from "../..";
 const AntOutlined = () => {
   const { isLoggedIn, user } = useUser();
-  const setShowModal = useHeartDispatch();
+  const setShowModal = useShowModalDispatch();
   const { id } = useCurrentSong();
   const setLocalLikes = useLocalLikesDispatch();
   return (

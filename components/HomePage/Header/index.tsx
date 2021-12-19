@@ -2,15 +2,26 @@ import { Button, PageHeader } from "antd";
 import firebase from "../../../firebase/client";
 import "firebase/auth";
 import useUser from "../../../hooks/useUser";
+import { useRouter } from "next/router";
+import { useShowModalDispatch } from "..";
 
 const Header = () => {
   const { isLoggedIn } = useUser();
+  const { push } = useRouter();
+  const setShowModal = useShowModalDispatch();
   return (
     <PageHeader
       extra={
         isLoggedIn
           ? [
-              <Button key="1">submit your wishlist</Button>,
+              <Button
+                key="1"
+                onClick={() => {
+                  push("/submit");
+                }}
+              >
+                submit your wishlist
+              </Button>,
               <Button
                 key="2"
                 onClick={() => {
@@ -20,7 +31,16 @@ const Header = () => {
                 log out
               </Button>,
             ]
-          : [<Button key="1">submit your wishlist</Button>]
+          : [
+              <Button
+                key="1"
+                onClick={() => {
+                  setShowModal(true)
+                }}
+              >
+                submit your wishlist
+              </Button>,
+            ]
       }
       ghost={false}
       title="PJ Sekai Song Wishlist"
