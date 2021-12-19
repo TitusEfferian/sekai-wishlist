@@ -23,8 +23,14 @@ const HeartDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
   () => {}
 );
 
+const LocalLikesContext = createContext<number>(0);
+const LocalLikesDispatch = createContext<Dispatch<SetStateAction<number>>>(
+  () => {}
+);
+
 const HeartIcons = () => {
-  const {likes} = useCurrentSong();
+  const { likes } = useCurrentSong();
+  const [localLikes, setLocalLikes] = useState(likes);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -40,43 +46,46 @@ const HeartIcons = () => {
   return (
     <HeartDispatch.Provider value={setShowModal}>
       <HeartContext.Provider value={showModal}>
-        <Space size={"small"} align="center" direction="vertical">
-          <DynamicHeartIcons />
-          <Typography.Paragraph>{likes}</Typography.Paragraph>
-          <Modal
-            onCancel={(e) => {
-              e.preventDefault();
-              setShowModal(false);
-            }}
-            title="hell"
-            visible={showModal}
-            footer={null}
-          >
-            <Space>
-              <Button
-                onClick={async (e) => {
+        <LocalLikesDispatch.Provider value={setLocalLikes}>
+          <LocalLikesContext.Provider value={localLikes}>
+            <Space size={"small"} align="center" direction="vertical">
+              <DynamicHeartIcons />
+              <Typography.Paragraph>{localLikes}</Typography.Paragraph>
+
+              <Modal
+                onCancel={(e) => {
                   e.preventDefault();
-                  const { additionalUserInfo, user } = await firebase
-                    .auth()
-                    .signInWithPopup(provider);
-                  if (additionalUserInfo.isNewUser) {
-                    await firebase
-                      .firestore()
-                      .collection("users")
-                      .doc(user.uid)
-                      .set({
-                        song_likes: [],
-                      });
-                  }
                   setShowModal(false);
                 }}
+                title="hell"
+                visible={showModal}
+                footer={null}
               >
-                Login with google
-              </Button>
-              <Button>Login with apple</Button>
+                <Space>
+                  <Button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      const { additionalUserInfo, user } = await firebase
+                        .auth()
+                        .signInWithPopup(provider);
+                      if (additionalUserInfo.isNewUser) {
+                        await firebase
+                          .firestore()
+                          .collection("users")
+                          .doc(user.uid)
+                          .set({});
+                      }
+                      setShowModal(false);
+                    }}
+                  >
+                    Login with google
+                  </Button>
+                  <Button>Login with apple</Button>
+                </Space>
+              </Modal>
             </Space>
-          </Modal>
-        </Space>
+          </LocalLikesContext.Provider>
+        </LocalLikesDispatch.Provider>
       </HeartContext.Provider>
     </HeartDispatch.Provider>
   );
@@ -89,4 +98,12 @@ export function useHeart() {
 
 export function useHeartDispatch() {
   return useContext(HeartDispatch);
+}
+
+export function useLocalLikes() {
+  return useContext(LocalLikesContext);
+}
+
+export function useLocalLikesDispatch() {
+  return useContext(LocalLikesDispatch);
 }
