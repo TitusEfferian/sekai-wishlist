@@ -1,5 +1,5 @@
 import { HeartOutlined } from "@ant-design/icons";
-import {  useLocalLikesDispatch } from ".";
+import { useLocalLikesDispatch } from ".";
 import useUser from "../../../../hooks/useUser";
 import firebase from "../../../../firebase/client";
 import "firebase/firestore";

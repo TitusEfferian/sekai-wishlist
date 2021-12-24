@@ -1,19 +1,11 @@
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  PageHeader,
-  Space,
-  Typography,
-} from "antd";
+import { Button, Form, Input, PageHeader, Space, Typography } from "antd";
 import firebase from "../../firebase/client";
 import "firebase/firestore";
 import { useRouter } from "next/router";
 import useUser from "../../hooks/useUser";
 
 const Submit = () => {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   const { isLoggedIn } = useUser();
   if (!isLoggedIn) {
     return <Typography.Title>forbidden</Typography.Title>;
@@ -34,8 +26,15 @@ const Submit = () => {
           },
         }}
         initialValues={{ remember: true }}
-        onFinish={() => {
-          console.log("hel");
+        onFinish={async ({ url }) => {
+          try {
+            await firebase.firestore().collection("song_submit").add({
+              song_url: url,
+            });
+            push("/submit/success");
+          } catch (err) {
+            push("/submit/error");
+          }
         }}
         onFinishFailed={() => {}}
         autoComplete="off"

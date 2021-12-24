@@ -35,7 +35,7 @@ const Header = () => {
               <Button
                 key="1"
                 onClick={() => {
-                  setShowModal(true)
+                  setShowModal(true);
                 }}
               >
                 submit your wishlist

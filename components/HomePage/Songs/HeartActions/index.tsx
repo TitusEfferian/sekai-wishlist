@@ -1,7 +1,7 @@
 import firebase from "../../../../firebase/client";
 import "firebase/auth";
 import "firebase/firestore";
-import {  Space, Typography } from "antd";
+import { Space, Typography } from "antd";
 import {
   createContext,
   Dispatch,
@@ -11,7 +11,6 @@ import {
 } from "react";
 import dynamic from "next/dynamic";
 import { useCurrentSong } from "..";
-
 
 const DynamicHeartIcons = dynamic(() => import("./DynamicHeartIcons"));
 const LocalLikesContext = createContext<number>(0);
@@ -24,16 +23,14 @@ const HeartIcons = () => {
   const [localLikes, setLocalLikes] = useState(likes);
 
   return (
-        <LocalLikesDispatch.Provider value={setLocalLikes}>
-          <LocalLikesContext.Provider value={localLikes}>
-            <Space size={"small"} align="center" direction="vertical">
-              <DynamicHeartIcons />
-              <Typography.Paragraph>{localLikes}</Typography.Paragraph>
-
-             
-            </Space>
-          </LocalLikesContext.Provider>
-        </LocalLikesDispatch.Provider>
+    <LocalLikesDispatch.Provider value={setLocalLikes}>
+      <LocalLikesContext.Provider value={localLikes}>
+        <Space size={"small"} align="center" direction="vertical">
+          <DynamicHeartIcons />
+          <Typography.Paragraph>{localLikes}</Typography.Paragraph>
+        </Space>
+      </LocalLikesContext.Provider>
+    </LocalLikesDispatch.Provider>
   );
 };
 export default HeartIcons;
