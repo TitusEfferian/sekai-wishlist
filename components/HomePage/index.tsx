@@ -20,7 +20,6 @@ const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
 );
 
 const provider = new firebase.auth.GoogleAuthProvider();
-const FBprovider = new firebase.auth.FacebookAuthProvider();
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -57,13 +56,6 @@ const HomePage = () => {
               }}
             >
               Login with google
-            </Button>
-            <Button onClick={async (e) => {
-              e.preventDefault();
-              const {user,credential} = await firebase.auth().signInWithPopup(FBprovider);
-              console.log(user,credential)
-            }}>
-              Login with facebook
             </Button>
           </Space>
         </Modal>
