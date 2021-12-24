@@ -11,7 +11,7 @@ import {
 
 const Header = dynamic(() => import("./Header"));
 const Songs = dynamic(() => import("./Songs"));
-const LoginModal = dynamic(()=>import('../LoginModal'));
+const LoginModal = dynamic(() => import("../LoginModal"));
 
 const ShowModalContext = createContext(false);
 const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
