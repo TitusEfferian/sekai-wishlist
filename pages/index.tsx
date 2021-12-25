@@ -10,6 +10,7 @@ const SongsContext = createContext<
     title: string;
     thumbnail: string;
     likes: number;
+    blurData: string;
   }[]
 >([]);
 
@@ -34,13 +35,14 @@ export async function getStaticProps() {
   return {
     props: {
       songs: data.docs.map((doc) => {
-        const { creator, title, thumbnail, likes } = doc.data();
+        const { creator, title, thumbnail, likes, blurData } = doc.data();
         return {
           id: doc.id,
           creator,
           title,
           thumbnail,
           likes,
+          blurData,
         };
       }),
     },

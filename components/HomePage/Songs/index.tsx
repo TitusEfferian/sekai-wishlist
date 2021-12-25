@@ -42,6 +42,8 @@ const Songs = () => {
                         width={324}
                         alt="example"
                         src={song_list[index].thumbnail}
+                        placeholder="blur"
+                        blurDataURL={song_list[index].blurData}
                       />
                     </div>
                   }
