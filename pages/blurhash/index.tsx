@@ -6,7 +6,7 @@ const BlurHash = () => {
 
 export const getStaticProps = async () => {
   const { base64 } = await getPlaiceholder(
-    "https://i.ytimg.com/vi_webp/sSYoz0JmnZo/hqdefault.webp"
+    "https://i.ytimg.com/vi_webp/RIA-vEJB1Aw/hqdefault.webp"
   );
   console.log(base64);
   return {

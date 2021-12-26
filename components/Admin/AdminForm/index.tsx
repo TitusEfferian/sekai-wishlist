@@ -27,8 +27,15 @@ const AdminForm = () => {
             likes: 0,
             thumbnail: "",
           });
-          message.success(`success - ${id}`);
-          await firebase.storage().ref(`songs/${id}/${file.file.name}`).put(file.file.originFileObj);
+          const { ref } = await firebase
+            .storage()
+            .ref(`songs/${id}/${file.file.name}`)
+            .put(file.file.originFileObj);
+          const url = await ref.getDownloadURL();
+          await firebase.firestore().collection("songs").doc(id).update({
+            thumbnail: url,
+          });
+          message.success(`success - ${id}`, 5000);
         } catch (err) {
           message.error(JSON.stringify(err));
         }
@@ -67,9 +74,11 @@ const AdminForm = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 4 }}>
-        <Upload onChange={e=>{
-          setFile(e);
-        }}>
+        <Upload
+          onChange={(e) => {
+            setFile(e);
+          }}
+        >
           <Button icon={<UploadOutlined />}>upload</Button>
         </Upload>
       </Form.Item>
