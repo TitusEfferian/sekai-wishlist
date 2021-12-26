@@ -1,7 +1,14 @@
-import { Button, Checkbox, Form, Input, Upload } from "antd";
+import { Button, Form, Input, message, Upload } from "antd";
+import firebase from "../../../firebase/client";
+import "firebase/firestore";
+import "firebase/storage";
 import { UploadOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { UploadChangeParam } from "antd/lib/upload";
+import { UploadFile } from "antd/lib/upload/interface";
 
 const AdminForm = () => {
+  const [file, setFile] = useState<UploadChangeParam<UploadFile<any>>>(null);
   return (
     <Form
       style={{ marginTop: 48 }}
@@ -10,11 +17,27 @@ const AdminForm = () => {
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
       autoComplete="off"
+      onFinish={async ({ creator, title, blurData, video_url }) => {
+        try {
+          const { id } = await firebase.firestore().collection("songs").add({
+            creator,
+            title,
+            blurData,
+            video_url,
+            likes: 0,
+            thumbnail: "",
+          });
+          message.success(`success - ${id}`);
+          await firebase.storage().ref(`songs/${id}/${file.file.name}`).put(file.file.originFileObj);
+        } catch (err) {
+          message.error(JSON.stringify(err));
+        }
+      }}
     >
       <Form.Item
-        label="composer"
-        name="composer"
-        rules={[{ required: true, message: "composer" }]}
+        label="creator"
+        name="creator"
+        rules={[{ required: true, message: "creator" }]}
       >
         <Input />
       </Form.Item>
@@ -27,13 +50,31 @@ const AdminForm = () => {
         <Input />
       </Form.Item>
 
+      <Form.Item
+        label="blurData"
+        name="blurData"
+        rules={[{ required: true, message: "blurData" }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="video_url"
+        name="video_url"
+        rules={[{ required: true, message: "video_url" }]}
+      >
+        <Input />
+      </Form.Item>
+
       <Form.Item wrapperCol={{ offset: 4 }}>
-        <Upload>
+        <Upload onChange={e=>{
+          setFile(e);
+        }}>
           <Button icon={<UploadOutlined />}>upload</Button>
         </Upload>
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
