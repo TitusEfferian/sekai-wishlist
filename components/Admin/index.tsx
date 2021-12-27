@@ -25,7 +25,7 @@ const Admin = () => {
       }
     });
   }, []);
-  if (isLoggedIn && ADMIN_ID === ADMIN_ID) {
+  if (isLoggedIn && user.uid === ADMIN_ID) {
     return (
       <>
         <AdminForm />
