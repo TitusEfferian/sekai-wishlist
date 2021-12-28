@@ -2,10 +2,12 @@ import { Button, message } from "antd";
 import firebase from "../../firebase/client";
 import { TwitterCircleFilled } from "@ant-design/icons";
 import { useShowModalDispatch } from "../HomePage";
+import useErrorLogger from "../../hooks/useErrorLogger";
 const provider = new firebase.auth.TwitterAuthProvider();
 
 const LoginWithTwitter = () => {
   const setShowModal = useShowModalDispatch();
+  const { handleLogError } = useErrorLogger();
   return (
     <Button
       icon={<TwitterCircleFilled />}
@@ -24,7 +26,7 @@ const LoginWithTwitter = () => {
           }
           setShowModal(false);
         } catch (err) {
-          message.error(JSON.stringify(err));
+          handleLogError(err);
         }
       }}
     >

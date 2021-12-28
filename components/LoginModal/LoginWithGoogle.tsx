@@ -2,10 +2,12 @@ import { Button, message } from "antd";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import firebase from "../../firebase/client";
 import { useShowModalDispatch } from "../HomePage";
+import useErrorLogger from "../../hooks/useErrorLogger";
 const provider = new firebase.auth.GoogleAuthProvider();
 
 const LoginWithGoogle = () => {
   const setShowModal = useShowModalDispatch();
+  const { handleLogError } = useErrorLogger();
   return (
     <Button
       icon={<GoogleCircleFilled />}
@@ -24,7 +26,7 @@ const LoginWithGoogle = () => {
           }
           setShowModal(false);
         } catch (err) {
-          message.error(JSON.stringify(err));
+          handleLogError(err);
         }
       }}
     >
