@@ -2,7 +2,9 @@ import { Col, Row } from "antd";
 import dynamic from "next/dynamic";
 import { useSongDetail } from "../../pages/[id]";
 
-const Header = dynamic(() => import("./Header"));
+const Header = dynamic(
+  () => import(/* webpackChunkName: "song-detail-header" */ "./Header")
+);
 const SongDetail = () => {
   const { video_url } = useSongDetail();
   console.log(video_url);

@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from "next/head";
 import "antd/dist/antd.css";
 import "../styles/vars.css";
 import "../styles/global.css";
@@ -6,10 +6,10 @@ import "../styles/global.css";
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-    <Head>
-      <title>Sekai Wishlist</title>
-    </Head>
-    <Component {...pageProps} />
+      <Head>
+        <title>Sekai Wishlist</title>
+      </Head>
+      <Component {...pageProps} />
     </>
-  )
+  );
 }

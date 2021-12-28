@@ -6,8 +6,12 @@ import useUser from "../../../../hooks/useUser";
 import { useCurrentSong } from "..";
 import { useLocalLikes } from ".";
 
-const AntHeartFilled = dynamic(() => import("./AntHeartFilled"));
-const AntOutlined = dynamic(() => import("./AntOutlined"));
+const AntHeartFilled = dynamic(
+  () => import(/* webpackChunkName: "ant-heart-filled" */ "./AntHeartFilled")
+);
+const AntOutlined = dynamic(
+  () => import(/* webpackChunkName: "ant-heart-outlined" */ "./AntOutlined")
+);
 
 const DynamicHeartIcons = () => {
   const [isLikes, setIsLikes] = useState(false);

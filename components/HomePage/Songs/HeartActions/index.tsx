@@ -12,7 +12,10 @@ import {
 import dynamic from "next/dynamic";
 import { useCurrentSong } from "..";
 
-const DynamicHeartIcons = dynamic(() => import("./DynamicHeartIcons"));
+const DynamicHeartIcons = dynamic(
+  /* webpackChunkName: "dynamic-heart-icon" */ () =>
+    import("./DynamicHeartIcons")
+);
 const LocalLikesContext = createContext<number>(0);
 const LocalLikesDispatch = createContext<Dispatch<SetStateAction<number>>>(
   () => {}

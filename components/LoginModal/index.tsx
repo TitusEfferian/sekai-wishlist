@@ -1,6 +1,7 @@
 import { Modal, Space } from "antd";
 import { useShowModal, useShowModalDispatch } from "../HomePage";
 import LoginWithGoogle from "./LoginWithGoogle";
+import LoginWithTwitter from "./LoginWithTwitter";
 
 const LoginModal = () => {
   const setShowModal = useShowModalDispatch();
@@ -17,6 +18,7 @@ const LoginModal = () => {
     >
       <Space>
         <LoginWithGoogle />
+        <LoginWithTwitter />
       </Space>
     </Modal>
   );

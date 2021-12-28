@@ -1,14 +1,14 @@
 import { Button, message } from "antd";
-import { GoogleCircleFilled } from "@ant-design/icons";
 import firebase from "../../firebase/client";
+import { TwitterCircleFilled } from "@ant-design/icons";
 import { useShowModalDispatch } from "../HomePage";
-const provider = new firebase.auth.GoogleAuthProvider();
+const provider = new firebase.auth.TwitterAuthProvider();
 
-const LoginWithGoogle = () => {
+const LoginWithTwitter = () => {
   const setShowModal = useShowModalDispatch();
   return (
     <Button
-      icon={<GoogleCircleFilled />}
+      icon={<TwitterCircleFilled />}
       onClick={async (e) => {
         try {
           e.preventDefault();
@@ -28,9 +28,9 @@ const LoginWithGoogle = () => {
         }
       }}
     >
-      Login with google
+      Login with twitter
     </Button>
   );
 };
 
-export default LoginWithGoogle;
+export default LoginWithTwitter;
