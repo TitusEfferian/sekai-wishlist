@@ -9,9 +9,9 @@ import {
   useState,
 } from "react";
 
-const Header = dynamic(() => import("./Header"));
-const Songs = dynamic(() => import("./Songs"));
-const LoginModal = dynamic(() => import("../LoginModal"));
+const Header = dynamic(() => import(/* webpackChunkName: "home-header" */ "./Header"));
+const Songs = dynamic(() => import(/* webpackChunkName: "home-song-list" */ "./Songs"));
+const LoginModal = dynamic(() => import(/* webpackChunkName: "login-modal" */ "../LoginModal"));
 
 const ShowModalContext = createContext(false);
 const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(

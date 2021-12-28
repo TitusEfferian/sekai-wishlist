@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { createContext, useContext } from "react";
 
-const HomePage = dynamic(() => import("../components/HomePage"));
+const HomePage = dynamic(() => import(/* webpackChunkName: "home-page" */ "../components/HomePage"));
 
 const SongsContext = createContext<
   {
