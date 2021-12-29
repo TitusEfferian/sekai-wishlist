@@ -8,6 +8,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { Alert, Col, Row, Space } from "antd";
 
 const Header = dynamic(
   () => import(/* webpackChunkName: "home-header" */ "./Header")
@@ -30,8 +31,19 @@ const HomePage = () => {
   return (
     <ShowModalDispatch.Provider value={setShowModal}>
       <ShowModalContext.Provider value={showModal}>
-        <Header />
-        <Songs />
+        <Space direction="vertical">
+          <Header />
+          <Row align="middle" justify="center">
+            <Col span={22}>
+              <Alert
+                message="Sekai wishlist is a community page where we can submit and vote for the song we wish to be playable in Project Sekai. Hopefully Sega will notice us"
+                type="info"
+              />
+            </Col>
+          </Row>
+
+          <Songs />
+        </Space>
         {showModal && <LoginModal />}
       </ShowModalContext.Provider>
     </ShowModalDispatch.Provider>
