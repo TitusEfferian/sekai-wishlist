@@ -6,7 +6,7 @@ import useUser from "../../hooks/useUser";
 
 const Submit = () => {
   const { back, push } = useRouter();
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, user } = useUser();
   if (!isLoggedIn) {
     return <Typography.Title>forbidden</Typography.Title>;
   }
@@ -30,6 +30,7 @@ const Submit = () => {
           try {
             await firebase.firestore().collection("song_submit").add({
               song_url: url,
+              user: user.uid,
             });
             push("/submit/success");
           } catch (err) {
