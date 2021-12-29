@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>Sekai Wishlist</title>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico"></link>
+        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"></link>
       </Head>
       <Component {...pageProps} />
     </>
