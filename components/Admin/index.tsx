@@ -3,8 +3,7 @@ import "firebase/auth";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "antd";
 import AdminForm from "./AdminForm";
-
-const ADMIN_ID = "wgPIFiDSl8WaVl2aJYTuAO5kTyU2";
+import { ADMIN_ID } from "../../constants";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -25,7 +24,7 @@ const Admin = () => {
       }
     });
   }, []);
-  if (isLoggedIn && user.uid === ADMIN_ID) {
+  if (isLoggedIn && ADMIN_ID.includes(user.uid)) {
     return (
       <>
         <AdminForm />
@@ -39,7 +38,7 @@ const Admin = () => {
       </>
     );
   }
-  if (isLoggedIn && user.uid !== ADMIN_ID) {
+  if (isLoggedIn && !ADMIN_ID.includes(user.uid)) {
     return (
       <>
         <Typography.Title>forbidden</Typography.Title>
