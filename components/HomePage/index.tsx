@@ -19,6 +19,12 @@ const Songs = dynamic(
 const LoginModal = dynamic(
   () => import(/* webpackChunkName: "login-modal" */ "../LoginModal")
 );
+const AlertInformation = dynamic(
+  () => import(/* webpackChunkName: "alert-information" */ "./AlertInformation")
+);
+const SortByPopular = dynamic(
+  () => import(/* webpackChunkName: "alert-information" */ "./SortByPopular")
+);
 
 const ShowModalContext = createContext(false);
 const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
@@ -33,15 +39,8 @@ const HomePage = () => {
       <ShowModalContext.Provider value={showModal}>
         <Space direction="vertical">
           <Header />
-          <Row align="middle" justify="center">
-            <Col span={22}>
-              <Alert
-                message="Sekai wishlist is a community page where we can submit and vote for the song we wish to be playable in Project Sekai. Hopefully Sega will notice us"
-                type="info"
-              />
-            </Col>
-          </Row>
-
+          <AlertInformation />
+          <SortByPopular />
           <Songs />
         </Space>
         {showModal && <LoginModal />}
