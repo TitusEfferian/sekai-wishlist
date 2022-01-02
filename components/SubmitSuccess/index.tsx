@@ -26,7 +26,7 @@ const SubmitSuccess = () => {
       ]}
       status={"success"}
       title="success submit your song wishlist"
-      subTitle="will validate and update your song wishlist within 24 hours"
+      subTitle="will validate and update your song to the list, thank you for your submission"
     />
   );
 };
