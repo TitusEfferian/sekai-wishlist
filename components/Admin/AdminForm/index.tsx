@@ -26,6 +26,7 @@ const AdminForm = () => {
             video_url,
             likes: 0,
             thumbnail: "",
+            created_at: firebase.firestore.Timestamp.now(),
           });
           const { ref } = await firebase
             .storage()
