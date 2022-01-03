@@ -19,6 +19,7 @@ const SongsContext = createContext<
     thumbnail: string;
     likes: number;
     blurData: string;
+    isReleased: boolean;
   }[]
 >([]);
 
@@ -30,6 +31,7 @@ type AppProps = {
     thumbnail: string;
     likes: number;
     blurData: string;
+    isReleased: boolean;
   }[];
 };
 
@@ -43,6 +45,7 @@ const SongsContextDispatch = createContext<
         thumbnail: string;
         likes: number;
         blurData: string;
+        isReleased: boolean;
       }[]
     >
   >
@@ -80,7 +83,8 @@ export async function getStaticProps() {
   return {
     props: {
       songs: data.docs.map((doc) => {
-        const { creator, title, thumbnail, likes, blurData } = doc.data();
+        const { creator, title, thumbnail, likes, blurData, isReleased } =
+          doc.data();
         return {
           id: doc.id,
           creator,
@@ -88,6 +92,7 @@ export async function getStaticProps() {
           thumbnail,
           likes,
           blurData,
+          isReleased,
         };
       }),
     },
