@@ -7,7 +7,6 @@ const Header = dynamic(
 );
 const SongDetail = () => {
   const { video_url } = useSongDetail();
-  console.log(video_url);
   return (
     <>
       <Header />

@@ -37,7 +37,6 @@ const DynamicHeartIcons = () => {
       }
     };
     if (isLoggedIn) {
-      console.log("lewat", id);
       handleFetchAsync();
     }
   }, [id, user.uid, isLoggedIn, localLikes]);
