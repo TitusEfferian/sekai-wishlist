@@ -1,5 +1,6 @@
 import { HeartOutlined } from "@ant-design/icons";
-import { Card, Col, List, Row, Space } from "antd";
+import { Badge, Card, Col, List, Row, Space } from "antd";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { createContext, useContext, useState } from "react";
@@ -8,12 +9,17 @@ import HeartActions from "./HeartActions";
 
 const { Meta } = Card;
 
+const CardWithRibbon = dynamic(() => import("./CardWithRibbon"));
+const CardWithoutRibbon = dynamic(() => import("./CardWithoutRibbon"));
+
 const CurrentSongCard = createContext({
   id: "",
   creator: "",
   title: "",
   thumbnail: "",
   likes: 0,
+  blurData: "",
+  isReleased: false,
 });
 
 const Songs = () => {
@@ -28,37 +34,9 @@ const Songs = () => {
           renderItem={(song, index) => (
             <List.Item key={song_list[index].id}>
               <Link href={`/${song_list[index].id}`} passHref>
-                <Card
-                  cover={
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Image
-                        height={200}
-                        width={324}
-                        alt="example"
-                        src={song_list[index].thumbnail}
-                        placeholder="blur"
-                        blurDataURL={song_list[index].blurData}
-                      />
-                    </div>
-                  }
-                  hoverable
-                >
-                  <Space direction="horizontal" size={60}>
-                    <Meta
-                      title={song_list[index].creator}
-                      description={song_list[index].title}
-                    />
-                    <CurrentSongCard.Provider value={song}>
-                      <HeartActions />
-                    </CurrentSongCard.Provider>
-                  </Space>
-                </Card>
+                <CurrentSongCard.Provider value={song}>
+                  {song.isReleased ? <CardWithRibbon /> : <CardWithoutRibbon />}
+                </CurrentSongCard.Provider>
               </Link>
             </List.Item>
           )}
