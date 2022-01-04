@@ -32,13 +32,13 @@ const Songs = () => {
           grid={{ xl: 4, xxl: 4, lg: 4, md: 2, sm: 1, xs: 1, gutter: 8 }}
           dataSource={song_list}
           renderItem={(song, index) => (
-            <List.Item key={song_list[index].id}>
-              <Link href={`/${song_list[index].id}`} passHref>
+            <Link href={`/${song_list[index].id}`} passHref>
+              <List.Item key={song_list[index].id}>
                 <CurrentSongCard.Provider value={song}>
                   {song.isReleased ? <CardWithRibbon /> : <CardWithoutRibbon />}
                 </CurrentSongCard.Provider>
-              </Link>
-            </List.Item>
+              </List.Item>
+            </Link>
           )}
         />
       </Col>

@@ -21,7 +21,8 @@ const SortByPopular = () => {
             .get();
           songDispatch([
             ...songs.docs.map((doc) => {
-              const { creator, title, thumbnail, likes, blurData, isReleased } = doc.data();
+              const { creator, title, thumbnail, likes, blurData, isReleased } =
+                doc.data();
               return {
                 id: doc.id,
                 creator,
@@ -46,7 +47,8 @@ const SortByPopular = () => {
           const songs = await db.collection("songs").get();
           songDispatch([
             ...songs.docs.map((doc) => {
-              const { creator, title, thumbnail, likes, blurData, isReleased } = doc.data();
+              const { creator, title, thumbnail, likes, blurData, isReleased } =
+                doc.data();
               return {
                 id: doc.id,
                 creator,
