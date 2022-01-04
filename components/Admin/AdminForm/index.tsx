@@ -27,6 +27,7 @@ const AdminForm = () => {
             likes: 0,
             thumbnail: "",
             created_at: firebase.firestore.Timestamp.now(),
+            isReleased: false,
           });
           const { ref } = await firebase
             .storage()
