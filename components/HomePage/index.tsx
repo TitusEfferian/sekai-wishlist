@@ -25,6 +25,9 @@ const AlertInformation = dynamic(
 const SortByPopular = dynamic(
   () => import(/* webpackChunkName: "alert-information" */ "./SortByPopular")
 );
+const FilterSort = dynamic(
+  () => import(/* webpackChunkName: "alert-information" */ "./FilterSort")
+);
 
 const ShowModalContext = createContext(false);
 const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
@@ -37,10 +40,10 @@ const HomePage = () => {
   return (
     <ShowModalDispatch.Provider value={setShowModal}>
       <ShowModalContext.Provider value={showModal}>
-        <Space direction="vertical">
+        <Space direction="vertical" style={{ width: "100%" }}>
           <Header />
           <AlertInformation />
-          <SortByPopular />
+          <FilterSort />
           <Songs />
         </Space>
         {showModal && <LoginModal />}

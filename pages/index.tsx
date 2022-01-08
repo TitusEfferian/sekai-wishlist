@@ -79,7 +79,7 @@ export function useSongsDispatch() {
 export async function getStaticProps() {
   const firebase = await (await import("../firebase/server")).default;
   const db = firebase.firestore();
-  const data = await db.collection("songs").get();
+  const data = await db.collection("songs").orderBy("created_at", "desc").get();
   return {
     props: {
       songs: data.docs.map((doc) => {
