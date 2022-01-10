@@ -7,10 +7,7 @@ const ListOfRequest = dynamic(() => import("./ListOfRequest"));
 
 const UserSubmit = () => {
   const { isLoggedIn, user } = useUser();
-  if (isLoggedIn && ADMIN_ID.includes(user.uid)) {
-    return <ListOfRequest />;
-  }
-  return <Typography.Title>forbidden</Typography.Title>;
+  return <ListOfRequest />;
 };
 
 export default UserSubmit;

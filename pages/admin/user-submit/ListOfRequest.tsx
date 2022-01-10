@@ -8,16 +8,20 @@ const ListOfRequest = () => {
   const { reload } = useRouter();
   useEffect(() => {
     const handleFetchData = async () => {
-      const db = firebase.firestore();
-      const data = await db.collection("song_submit").get();
-      setData(
-        data.docs.map((x) => {
-          return {
-            id: x.id,
-            data: x.data(),
-          };
-        })
-      );
+      try {
+        const db = firebase.firestore();
+        const data = await db.collection("song_submit").get();
+        setData(
+          data.docs.map((x) => {
+            return {
+              id: x.id,
+              data: x.data(),
+            };
+          })
+        );
+      } catch (err) {
+        message.error(JSON.stringify(err));
+      }
     };
     handleFetchData();
   }, []);
