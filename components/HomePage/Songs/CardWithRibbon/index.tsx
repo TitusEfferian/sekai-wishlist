@@ -30,7 +30,7 @@ const CardWithRibbon = () => {
         }
         hoverable
       >
-        <Space direction="horizontal" size={60}>
+        <Space direction="vertical" size={"large"} style={{ width: "100%" }}>
           <Meta title={creator} description={title} />
           <HeartActions />
         </Space>
