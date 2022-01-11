@@ -21,19 +21,30 @@ const useFetchSongs = () => {
     const handleFetchAsync = async () => {
       try {
         const db = firebase.firestore();
-        const snapshot = await db.collection("songs").get();
-        const songs = snapshot.docs.map((doc) => ({
-          blurData: doc.data().blurData,
-          created_at: doc.data().created_at,
-          creator: doc.data().creator,
-          isReleased: doc.data().isReleased,
-          likes: doc.data().likes,
-          thumbnail: doc.data().thumbnail,
-          title: doc.data().title,
-          video_url: doc.data().video_url,
-          id: doc.id,
-        }));
-        setSongs(songs);
+        // const snapshot = await db
+        //   .collection("songs")
+        //   .orderBy("created_at", "desc")
+        //   .get();
+        const snapshot = db
+          .collection("songs")
+          .orderBy("created_at", "desc")
+          .onSnapshot((snapshot) => {
+            const songs = snapshot.docs.map((doc) => ({
+              blurData: doc.data().blurData,
+              created_at: doc.data().created_at,
+              creator: doc.data().creator,
+              isReleased: doc.data().isReleased,
+              likes: doc.data().likes,
+              thumbnail: doc.data().thumbnail,
+              title: doc.data().title,
+              video_url: doc.data().video_url,
+              id: doc.id,
+            }));
+            setSongs(songs);
+          });
+        window.onbeforeunload = (e) => {
+          snapshot();
+        };
       } catch (err) {
         message.error(JSON.stringify(err));
       }
