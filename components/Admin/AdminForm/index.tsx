@@ -37,7 +37,8 @@ const AdminForm = () => {
           await firebase.firestore().collection("songs").doc(id).update({
             thumbnail: url,
           });
-          message.success(`success - ${id}`, 5000);
+          message.success(`success - ${id}`, 2000);
+          window.location.reload();
         } catch (err) {
           message.error(JSON.stringify(err));
         }
