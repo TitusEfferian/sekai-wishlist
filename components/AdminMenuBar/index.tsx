@@ -29,6 +29,14 @@ const AdminMenuBar = () => {
       >
         User Submit
       </Menu.Item>
+      <Menu.Item
+        key={"/admin/user-list"}
+        onClick={() => {
+          replace("/admin/user-list");
+        }}
+      >
+        User List
+      </Menu.Item>
     </Menu>
   );
 };
