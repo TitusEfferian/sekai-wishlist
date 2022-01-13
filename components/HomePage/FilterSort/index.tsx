@@ -26,7 +26,7 @@ const FilterSort = () => {
   if (sm) {
     return (
       <Row>
-        <Col span={24} offset={1}>
+        <Col span={23} offset={1}>
           <FilterSortRadio />
         </Col>
       </Row>
