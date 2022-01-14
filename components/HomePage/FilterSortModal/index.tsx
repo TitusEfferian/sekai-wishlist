@@ -10,6 +10,7 @@ const FilterSortModal = () => {
     handleFetchAlreadyReleased,
     handleFetchMostVoted,
     handleFetchRecentlyAdded,
+    handleFetchAlphabeticalOrder,
   } = useFilterSort();
   const [value, setValue] = useState(0);
   return (
@@ -23,6 +24,9 @@ const FilterSortModal = () => {
           await handleFetchMostVoted();
         }
         if (value === 2) {
+          await handleFetchAlphabeticalOrder();
+        }
+        if (value === 3) {
           await handleFetchAlreadyReleased();
         }
         dispatch(false);
@@ -39,7 +43,8 @@ const FilterSortModal = () => {
       >
         <Radio value={0}>Sort By Recently Added</Radio>
         <Radio value={1}>Sort By Most Voted</Radio>
-        <Radio value={2}>Already Released</Radio>
+        <Radio value={2}>Sort By Alphabetical Title Order</Radio>
+        <Radio value={3}>Already Released</Radio>
       </Radio.Group>
     </Modal>
   );

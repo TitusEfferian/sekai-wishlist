@@ -48,6 +48,27 @@ const useFilterSort = () => {
         }),
       ]);
     },
+    handleFetchAlphabeticalOrder: async () => {
+      const firebase = await (await import("../../../firebase/client")).default;
+      await import("firebase/firestore");
+      const db = firebase.firestore();
+      const songs = await db.collection("songs").orderBy("title", "asc").get();
+      songDispatch([
+        ...songs.docs.map((doc) => {
+          const { creator, title, thumbnail, likes, blurData, isReleased } =
+            doc.data();
+          return {
+            id: doc.id,
+            creator,
+            title,
+            thumbnail,
+            likes,
+            blurData,
+            isReleased,
+          };
+        }),
+      ]);
+    },
     handleFetchAlreadyReleased: async () => {
       const firebase = await (await import("../../../firebase/client")).default;
       await import("firebase/firestore");

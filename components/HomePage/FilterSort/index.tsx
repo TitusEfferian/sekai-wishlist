@@ -25,30 +25,27 @@ const FilterSort = () => {
   const [modalVisible, setModalVisible] = useState(false);
   if (sm) {
     return (
-      <Row>
-        <Col span={23} offset={1}>
-          <FilterSortRadio />
-        </Col>
-      </Row>
+      <Col span={23} offset={1}>
+        <FilterSortRadio />
+      </Col>
     );
   }
   return (
     <ModalFilterSortDispatch.Provider value={setModalVisible}>
       <ModalFilterSort.Provider value={modalVisible}>
-        <Row>
-          <Col span={22} offset={1}>
-            <Button
-              onClick={() => {
-                setModalVisible(true);
-              }}
-              block
-              icon={<FilterOutlined />}
-            >
-              Filter
-            </Button>
-            <FilterSortRadioModal />
-          </Col>
-        </Row>
+        <Col span={22} offset={1}>
+          <Button
+            onClick={() => {
+              setModalVisible(true);
+            }}
+            block
+            icon={<FilterOutlined />}
+          >
+            Filter
+          </Button>
+          <FilterSortRadioModal />
+        </Col>
+        {/* </Row> */}
       </ModalFilterSort.Provider>
     </ModalFilterSortDispatch.Provider>
   );

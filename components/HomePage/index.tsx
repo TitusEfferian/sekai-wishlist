@@ -26,7 +26,10 @@ const SortByPopular = dynamic(
   () => import(/* webpackChunkName: "alert-information" */ "./SortByPopular")
 );
 const FilterSort = dynamic(
-  () => import(/* webpackChunkName: "alert-information" */ "./FilterSort")
+  () => import(/* webpackChunkName: "alert-information" */ "./FilterSort"),
+  {
+    ssr: false,
+  }
 );
 
 const ShowModalContext = createContext(false);
@@ -43,7 +46,9 @@ const HomePage = () => {
         <Space direction="vertical" style={{ width: "100%" }}>
           <Header />
           <AlertInformation />
-          <FilterSort />
+          <Row style={{ height: 32 }}>
+            <FilterSort />
+          </Row>
           <Songs />
         </Space>
         {showModal && <LoginModal />}

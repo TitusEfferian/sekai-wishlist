@@ -29,7 +29,7 @@ const CardWithoutRibbon = () => {
       hoverable
     >
       <Space direction="vertical" size={"large"} style={{ width: "100%" }}>
-        <Meta title={creator} description={title} />
+        <Meta title={title} description={creator} />
         <HeartActions />
       </Space>
     </Card>
