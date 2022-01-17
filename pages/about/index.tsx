@@ -18,6 +18,9 @@ const About = () => {
               submit and vote here, hopefully sega will notice us."
             ></Alert>
           </Col>
+          <Col span={22} offset={1}>
+            <Typography.Title level={4}>Thank you to :</Typography.Title>
+          </Col>
           <Col offset={1} span={22}>
             <List
               dataSource={[
