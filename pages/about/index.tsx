@@ -55,7 +55,7 @@ const About = () => {
                 },
                 {
                   text: "KasaSupremacy",
-                  link: "https://twitter.com/MarceCloud39",
+                  link: "https://twitter.com/KasaSupremacy",
                 },
                 {
                   text: "emperesque",
