@@ -1,7 +1,8 @@
-import { useSongsDispatch } from "../../../pages";
+import { useLastCursorDispatch, useSongsDispatch } from "../../../pages";
 
-const useFilterSort = () => {
+const useFetchFilterSort = () => {
   const songDispatch = useSongsDispatch();
+  const lastCursorDispatch = useLastCursorDispatch();
   return {
     handleFetchRecentlyAdded: async () => {
       const firebase = await (await import("../../../firebase/client")).default;
@@ -10,7 +11,9 @@ const useFilterSort = () => {
       const songs = await db
         .collection("songs")
         .orderBy("created_at", "desc")
+        .limit(10)
         .get();
+      lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
         ...songs.docs.map((doc) => {
           const { creator, title, thumbnail, likes, blurData, isReleased } =
@@ -31,7 +34,12 @@ const useFilterSort = () => {
       const firebase = await (await import("../../../firebase/client")).default;
       await import("firebase/firestore");
       const db = firebase.firestore();
-      const songs = await db.collection("songs").orderBy("likes", "desc").get();
+      const songs = await db
+        .collection("songs")
+        .orderBy("likes", "desc")
+        .limit(10)
+        .get();
+      lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
         ...songs.docs.map((doc) => {
           const { creator, title, thumbnail, likes, blurData, isReleased } =
@@ -52,7 +60,12 @@ const useFilterSort = () => {
       const firebase = await (await import("../../../firebase/client")).default;
       await import("firebase/firestore");
       const db = firebase.firestore();
-      const songs = await db.collection("songs").orderBy("title", "asc").get();
+      const songs = await db
+        .collection("songs")
+        .orderBy("title", "asc")
+        .limit(10)
+        .get();
+      lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
         ...songs.docs.map((doc) => {
           const { creator, title, thumbnail, likes, blurData, isReleased } =
@@ -76,7 +89,9 @@ const useFilterSort = () => {
       const songs = await db
         .collection("songs")
         .where("isReleased", "==", true)
+        .limit(10)
         .get();
+      lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
         ...songs.docs.map((doc) => {
           const { creator, title, thumbnail, likes, blurData, isReleased } =
@@ -96,4 +111,4 @@ const useFilterSort = () => {
   };
 };
 
-export default useFilterSort;
+export default useFetchFilterSort;

@@ -8,7 +8,8 @@ import {
   useContext,
   useState,
 } from "react";
-import { Alert, Col, Row, Space } from "antd";
+import { Row, Space } from "antd";
+import { useLoading } from "../../pages";
 
 const Header = dynamic(
   () => import(/* webpackChunkName: "home-header" */ "./Header")
@@ -23,10 +24,17 @@ const AlertInformation = dynamic(
   () => import(/* webpackChunkName: "alert-information" */ "./AlertInformation")
 );
 const SortByPopular = dynamic(
-  () => import(/* webpackChunkName: "alert-information" */ "./SortByPopular")
+  () => import(/* webpackChunkName: "sort-by-popular" */ "./SortByPopular")
 );
 const FilterSort = dynamic(
-  () => import(/* webpackChunkName: "alert-information" */ "./FilterSort"),
+  () => import(/* webpackChunkName: "filter-sort" */ "./FilterSort"),
+  {
+    ssr: false,
+  }
+);
+
+const LoadMore = dynamic(
+  () => import(/* webpackChunkName: "load-more" */ "./LoadMore"),
   {
     ssr: false,
   }
@@ -39,6 +47,7 @@ const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
+  const loading = useLoading();
 
   return (
     <ShowModalDispatch.Provider value={setShowModal}>
@@ -50,6 +59,7 @@ const HomePage = () => {
             <FilterSort />
           </Row>
           <Songs />
+          {!loading && <LoadMore />}
         </Space>
         {showModal && <LoginModal />}
       </ShowModalContext.Provider>

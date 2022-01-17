@@ -6,50 +6,34 @@ import {
   useContext,
   useState,
 } from "react";
+import { SongInterface } from "../types/SongTypes";
 
 const HomePage = dynamic(
   () => import(/* webpackChunkName: "home-page" */ "../components/HomePage")
 );
 
-const SongsContext = createContext<
-  {
-    id: string;
-    creator: string;
-    title: string;
-    thumbnail: string;
-    likes: number;
-    blurData: string;
-    isReleased: boolean;
-  }[]
->([]);
+const SongsContext = createContext<SongInterface[]>([]);
+
+const FilterSortContext = createContext<number>(0);
+const FilterSortContextDispatch = createContext<
+  Dispatch<SetStateAction<number>>
+>(() => {});
 
 type AppProps = {
-  songs: {
-    id: string;
-    creator: string;
-    title: string;
-    thumbnail: string;
-    likes: number;
-    blurData: string;
-    isReleased: boolean;
-  }[];
+  songs: SongInterface[];
 };
 
 const SongsContextDispatch = createContext<
-  Dispatch<
-    SetStateAction<
-      {
-        id: string;
-        creator: string;
-        title: string;
-        thumbnail: string;
-        likes: number;
-        blurData: string;
-        isReleased: boolean;
-      }[]
-    >
-  >
+  Dispatch<SetStateAction<SongInterface[]>>
 >(() => {});
+
+const LoadingContext = createContext(false);
+const LoadingDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
+  () => {}
+);
+
+const SongsLastCursor = createContext<any>({});
+const SongsLastCursorDispatch = createContext<any>(() => {});
 
 const Home = ({ songs }: AppProps) => {
   /**
@@ -57,12 +41,27 @@ const Home = ({ songs }: AppProps) => {
    * and in the child components, there is a sort by feature, and we can modify the state from there
    */
   const [songState, setSongState] = useState(songs);
+  const [filterSortState, setFilterSortState] = useState(0);
+  const [lastCursorState, setLastCursorState] = useState(null);
+  const [loading, setLoading] = useState(false);
   return (
-    <SongsContextDispatch.Provider value={setSongState}>
-      <SongsContext.Provider value={songState}>
-        <HomePage />
-      </SongsContext.Provider>
-    </SongsContextDispatch.Provider>
+    <LoadingDispatch.Provider value={setLoading}>
+      <LoadingContext.Provider value={loading}>
+        <FilterSortContextDispatch.Provider value={setFilterSortState}>
+          <FilterSortContext.Provider value={filterSortState}>
+            <SongsContextDispatch.Provider value={setSongState}>
+              <SongsContext.Provider value={songState}>
+                <SongsLastCursorDispatch.Provider value={setLastCursorState}>
+                  <SongsLastCursor.Provider value={lastCursorState}>
+                    <HomePage />
+                  </SongsLastCursor.Provider>
+                </SongsLastCursorDispatch.Provider>
+              </SongsContext.Provider>
+            </SongsContextDispatch.Provider>
+          </FilterSortContext.Provider>
+        </FilterSortContextDispatch.Provider>
+      </LoadingContext.Provider>
+    </LoadingDispatch.Provider>
   );
 };
 
@@ -76,10 +75,38 @@ export function useSongsDispatch() {
   return useContext(SongsContextDispatch);
 }
 
-export async function getStaticProps() {
+export function useLastCursor() {
+  return useContext(SongsLastCursor);
+}
+
+export function useLastCursorDispatch() {
+  return useContext(SongsLastCursorDispatch);
+}
+
+export function useFilterSort() {
+  return useContext(FilterSortContext);
+}
+
+export function useFilterSortDispatch() {
+  return useContext(FilterSortContextDispatch);
+}
+
+export function useLoading() {
+  return useContext(LoadingContext);
+}
+
+export function useLoadingDispatch() {
+  return useContext(LoadingDispatch);
+}
+
+export async function getServerSideProps() {
   const firebase = await (await import("../firebase/server")).default;
   const db = firebase.firestore();
-  const data = await db.collection("songs").orderBy("created_at", "desc").get();
+  const data = await db
+    .collection("songs")
+    .orderBy("created_at", "desc")
+    .limit(10)
+    .get();
   return {
     props: {
       songs: data.docs.map((doc) => {
@@ -94,7 +121,7 @@ export async function getStaticProps() {
           blurData,
           isReleased,
         };
-      }),
+      }) as SongInterface[],
     },
   };
 }
