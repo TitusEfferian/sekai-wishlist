@@ -1,27 +1,43 @@
-import { Col, Divider, List, PageHeader, Row, Space, Typography } from "antd";
+import { Alert, Col, List, PageHeader, Row, Space, Typography } from "antd";
 import { useRouter } from "next/router";
 
 const About = () => {
   const { back } = useRouter();
   return (
     <Space direction="vertical" style={{ width: "100%" }} size={"large"}>
-      <PageHeader
-        title="PJ Sekai Song Wishlist"
-        subTitle="about us"
-        ghost={false}
-        onBack={back}
-      />
+      <PageHeader title="about us" ghost={false} onBack={back} />
       <Row>
         <Space direction="vertical" style={{ width: "100%" }} size={"large"}>
+          <Col span={22} offset={1}>
+            <Alert
+              type="info"
+              message="Sekai wishlist is a community page where we want to accommodate
+              your song wishlist and share it to the others, and let us see if
+              others have the same wishlist as you. And lastly this is not an
+              official page from sega / pjsekai itself, but if a lot of people
+              submit and vote here, hopefully sega will notice us."
+            ></Alert>
+          </Col>
           <Col offset={1} span={22}>
             <List
-              dataSource={["titusefferian"]}
-              header={<Typography.Title level={4}>About me</Typography.Title>}
+              dataSource={[
+                {
+                  text: "titusefferian",
+                  link: "https://github.com/titusefferian",
+                },
+              ]}
+              header={
+                <Typography.Title level={4}>
+                  Development Contributor
+                </Typography.Title>
+              }
               bordered
               renderItem={(item) => {
                 return (
                   <List.Item>
-                    <Typography.Link>{item}</Typography.Link>
+                    <Typography.Link href={item.link} target="_blank">
+                      {item.text}
+                    </Typography.Link>
                   </List.Item>
                 );
               }}
@@ -30,21 +46,35 @@ const About = () => {
           <Col offset={1} span={22}>
             <List
               dataSource={[
-                "MarceCloud39",
-                "KasaSupremacy",
-                "emperesque",
-                "paramithatm",
+                {
+                  text: "MarceCloud39",
+                  link: "https://twitter.com/MarceCloud39",
+                },
+                {
+                  text: "KasaSupremacy",
+                  link: "https://twitter.com/MarceCloud39",
+                },
+                {
+                  text: "emperesque",
+                  link: "https://twitter.com/emperesque",
+                },
+                {
+                  text: "paramithatm",
+                  link: "https://github.com/paramithatm",
+                },
               ]}
               header={
                 <Typography.Title level={4}>
-                  Thank you to our content contributor
+                  Content Contributor
                 </Typography.Title>
               }
               bordered
               renderItem={(item) => {
                 return (
                   <List.Item>
-                    <Typography.Link>{item}</Typography.Link>
+                    <Typography.Link href={item.link} target="_blank">
+                      {item.text}
+                    </Typography.Link>
                   </List.Item>
                 );
               }}
@@ -52,21 +82,18 @@ const About = () => {
           </Col>
           <Col offset={1} span={22}>
             <List
-              dataSource={["Sekai Viewer"]}
+              dataSource={[
+                { text: "Sekai Viewer", link: "https://discord.gg/xcDBRMd" },
+              ]}
               header={
-                <Typography.Title level={4}>
-                  Thank you to our domain partner
-                </Typography.Title>
+                <Typography.Title level={4}>Domain Partner</Typography.Title>
               }
               bordered
               renderItem={(item) => {
                 return (
                   <List.Item>
-                    <Typography.Link
-                      href="https://discord.gg/xcDBRMd"
-                      target={"_blank"}
-                    >
-                      {item}
+                    <Typography.Link href={item.link} target={"_blank"}>
+                      {item.text}
                     </Typography.Link>
                   </List.Item>
                 );

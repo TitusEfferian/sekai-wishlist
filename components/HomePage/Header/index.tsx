@@ -30,6 +30,14 @@ const Header = () => {
               >
                 log out
               </Button>,
+              <Button
+                key="3"
+                onClick={() => {
+                  push("/about");
+                }}
+              >
+                About
+              </Button>,
             ]
           : [
               <Button
@@ -39,6 +47,22 @@ const Header = () => {
                 }}
               >
                 submit your wishlist
+              </Button>,
+              <Button
+                key="2"
+                onClick={() => {
+                  setShowModal(true);
+                }}
+              >
+                log in
+              </Button>,
+              <Button
+                key="3"
+                onClick={() => {
+                  setShowModal(true);
+                }}
+              >
+                about
               </Button>,
             ]
       }

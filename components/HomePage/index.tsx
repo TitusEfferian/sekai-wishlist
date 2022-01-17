@@ -20,9 +20,6 @@ const Songs = dynamic(
 const LoginModal = dynamic(
   () => import(/* webpackChunkName: "login-modal" */ "../LoginModal")
 );
-const AlertInformation = dynamic(
-  () => import(/* webpackChunkName: "alert-information" */ "./AlertInformation")
-);
 const SortByPopular = dynamic(
   () => import(/* webpackChunkName: "sort-by-popular" */ "./SortByPopular")
 );
@@ -54,7 +51,6 @@ const HomePage = () => {
       <ShowModalContext.Provider value={showModal}>
         <Space direction="vertical" style={{ width: "100%" }}>
           <Header />
-          <AlertInformation />
           <Row style={{ height: 32 }}>
             <FilterSort />
           </Row>
