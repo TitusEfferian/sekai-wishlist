@@ -59,7 +59,7 @@ const Header = () => {
               <Button
                 key="3"
                 onClick={() => {
-                  push("/submit");
+                  push("/about");
                 }}
               >
                 about
