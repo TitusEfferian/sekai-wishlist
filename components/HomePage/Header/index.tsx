@@ -59,7 +59,7 @@ const Header = () => {
               <Button
                 key="3"
                 onClick={() => {
-                  setShowModal(true);
+                  push("/submit");
                 }}
               >
                 about
