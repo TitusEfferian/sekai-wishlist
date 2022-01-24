@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import dayjs from "dayjs";
 import "firebase/firestore";
 import "firebase/auth";
 import {
@@ -8,7 +9,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { Row, Space } from "antd";
+import { Alert, Row, Space } from "antd";
 import { useLoading } from "../../pages";
 
 const Header = dynamic(
@@ -51,6 +52,16 @@ const HomePage = () => {
       <ShowModalContext.Provider value={showModal}>
         <Space direction="vertical" style={{ width: "100%" }}>
           <Header />
+          <Alert
+            type="warning"
+            message={`we will have website maintenance on ${dayjs(
+              "Tuesday, January 25, 2022 9:00:00 PM GMT+07:00"
+            ).format("DD MMM YYYY, hh:mm A")} - ${dayjs(
+              "Tuesday, January 25, 2022 12:00:00 PM GMT+07:00"
+            ).format(
+              "DD MMM YYYY, hh:mm A"
+            )} local time, you will not be able to likes or unlikes at this time`}
+          />
           <Row style={{ height: 32 }}>
             <FilterSort />
           </Row>
