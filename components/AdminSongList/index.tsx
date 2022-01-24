@@ -8,6 +8,7 @@ const SongModalContext = createContext({
   title: "",
   creator: "",
   id: "",
+  isReleased: false,
 });
 
 const AdminSongList = () => {
@@ -28,6 +29,7 @@ const AdminSongList = () => {
             title: x.title,
             creator: x.creator,
             id: x.id,
+            isReleased: x.isReleased,
           },
         };
       })}
@@ -69,10 +71,12 @@ const AdminSongList = () => {
           title: "action",
           dataIndex: "modal_data",
           key: "modal_data",
-          render: ({ title, creator, id }) => {
+          render: ({ title, creator, id, isReleased }) => {
             return (
               <Space>
-                <SongModalContext.Provider value={{ creator, title, id }}>
+                <SongModalContext.Provider
+                  value={{ creator, title, id, isReleased }}
+                >
                   <Edit />
                 </SongModalContext.Provider>
               </Space>
