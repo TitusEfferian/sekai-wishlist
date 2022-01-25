@@ -54,9 +54,7 @@ const HomePage = () => {
           <Header />
           <Alert
             type="warning"
-            message={`we will have website maintenance on ${dayjs(
-              "Tuesday, January 25, 2022 9:00:00 PM GMT+07:00"
-            ).format("DD MMM YYYY hh:mm A")} local time, you will not be able to likes or unlikes at this time`}
+            message={`we are doing maintenance right now, you will not be able to likes or unlikes at this time`}
           />
           <Row style={{ height: 32 }}>
             <FilterSort />
