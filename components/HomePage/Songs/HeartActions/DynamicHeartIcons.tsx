@@ -1,5 +1,12 @@
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import firebase from "../../../../firebase/client";
 import "firebase/firestore";
 import useUser from "../../../../hooks/useUser";
@@ -13,11 +20,17 @@ const AntOutlined = dynamic(
   () => import(/* webpackChunkName: "ant-heart-outlined" */ "./AntOutlined")
 );
 
+const HeartLoading = createContext(false);
+const HeartLoadingDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
+  () => {}
+);
+
 const DynamicHeartIcons = () => {
   const [isLikes, setIsLikes] = useState(false);
   const localLikes = useLocalLikes();
   const { user, isLoggedIn } = useUser();
   const { id } = useCurrentSong();
+  const [loading, setLoading] = useState(false);
   /**
    * fetch the likes from firestore
    */
@@ -40,10 +53,16 @@ const DynamicHeartIcons = () => {
       handleFetchAsync();
     }
   }, [id, user.uid, isLoggedIn, localLikes]);
-  if (isLikes && isLoggedIn) {
-    return <AntHeartFilled />;
-  }
-  return <AntOutlined />;
+  return (
+    <HeartLoadingDispatch.Provider value={setLoading}>
+      <HeartLoading.Provider value={loading}>
+        {isLikes && isLoggedIn ? <AntHeartFilled /> : <AntOutlined />}
+      </HeartLoading.Provider>
+    </HeartLoadingDispatch.Provider>
+  );
 };
+
+export const useHeartLoadingDispatch = () => useContext(HeartLoadingDispatch);
+export const useHeartLoading = () => useContext(HeartLoading);
 
 export default DynamicHeartIcons;
