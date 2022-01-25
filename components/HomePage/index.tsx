@@ -52,10 +52,6 @@ const HomePage = () => {
       <ShowModalContext.Provider value={showModal}>
         <Space direction="vertical" style={{ width: "100%" }}>
           <Header />
-          <Alert
-            type="warning"
-            message={`we are doing maintenance right now, you will not be able to likes or unlikes at this time`}
-          />
           <Row style={{ height: 32 }}>
             <FilterSort />
           </Row>
