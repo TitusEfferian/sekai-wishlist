@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import dayjs from "dayjs";
 import "firebase/firestore";
 import "firebase/auth";
 import {
@@ -9,8 +8,8 @@ import {
   useContext,
   useState,
 } from "react";
-import { Alert, Row, Space } from "antd";
-import { useLoading } from "../../pages";
+import { Row, Space } from "antd";
+import { useIsSearching, useLoading } from "../../pages";
 
 const Header = dynamic(
   () => import(/* webpackChunkName: "home-header" */ "./Header")
@@ -38,6 +37,10 @@ const LoadMore = dynamic(
   }
 );
 
+const SearchPlatform = dynamic(
+  () => import(/* webpackChunkName: "search-platform" */ "./SearchPlatform")
+);
+
 const ShowModalContext = createContext(false);
 const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
   () => {}
@@ -46,6 +49,7 @@ const ShowModalDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const loading = useLoading();
+  const isSearching = useIsSearching();
 
   return (
     <ShowModalDispatch.Provider value={setShowModal}>
@@ -55,8 +59,9 @@ const HomePage = () => {
           <Row style={{ height: 32 }}>
             <FilterSort />
           </Row>
+          <SearchPlatform />
           <Songs />
-          {!loading && <LoadMore />}
+          {!loading && !isSearching && <LoadMore />}
         </Space>
         {showModal && <LoginModal />}
       </ShowModalContext.Provider>

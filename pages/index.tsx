@@ -14,6 +14,11 @@ const HomePage = dynamic(
 
 const SongsContext = createContext<SongInterface[]>([]);
 
+const IsSearchingDispatch = createContext<Dispatch<SetStateAction<boolean>>>(
+  () => {}
+);
+const IsSearchingValue = createContext(false);
+
 const FilterSortContext = createContext<number>(0);
 const FilterSortContextDispatch = createContext<
   Dispatch<SetStateAction<number>>
@@ -44,6 +49,7 @@ const Home = ({ songs }: AppProps) => {
   const [filterSortState, setFilterSortState] = useState(0);
   const [lastCursorState, setLastCursorState] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   return (
     <LoadingDispatch.Provider value={setLoading}>
       <LoadingContext.Provider value={loading}>
@@ -53,7 +59,11 @@ const Home = ({ songs }: AppProps) => {
               <SongsContext.Provider value={songState}>
                 <SongsLastCursorDispatch.Provider value={setLastCursorState}>
                   <SongsLastCursor.Provider value={lastCursorState}>
-                    <HomePage />
+                    <IsSearchingDispatch.Provider value={setIsSearching}>
+                      <IsSearchingValue.Provider value={isSearching}>
+                        <HomePage />
+                      </IsSearchingValue.Provider>
+                    </IsSearchingDispatch.Provider>
                   </SongsLastCursor.Provider>
                 </SongsLastCursorDispatch.Provider>
               </SongsContext.Provider>
@@ -97,6 +107,14 @@ export function useLoading() {
 
 export function useLoadingDispatch() {
   return useContext(LoadingDispatch);
+}
+
+export function useIsSearching() {
+  return useContext(IsSearchingValue);
+}
+
+export function useIsSearchingDispatch() {
+  return useContext(IsSearchingDispatch);
 }
 
 export async function getServerSideProps() {

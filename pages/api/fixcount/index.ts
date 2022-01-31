@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import firebase from "../../../firebase/server";
+import admin from "firebase-admin";
 export default async function handler(req, res) {
   // const songs = await firebase.firestore().collection("songs").get();
   // for (let a = 0; a < songs.size; a++) {
@@ -32,5 +33,18 @@ export default async function handler(req, res) {
   //   }
   //   console.log(`curr index - ${a}, total - ${user_data.size}`);
   // }
+  // const data = await admin.auth().listUsers();
+  // const batch = firebase.firestore().batch();
+  // for(let a=300;a<data.users.length;a++){
+  //   // await firebase.firestore().collection('users').doc(data.users[a].uid).update({
+  //   //   displayName: data.users[a].displayName,
+  //   // });
+  //   const ref = firebase.firestore().collection('users').doc(data.users[a].uid);
+  //   batch.update(ref, {
+  //     displayName: data.users[a]?.displayName || 'undefined',
+  //   })
+  //   console.log(a)
+  // }
+  // await batch.commit();
   res.status(200).json({ success: true });
 }
