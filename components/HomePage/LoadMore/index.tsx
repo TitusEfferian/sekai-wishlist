@@ -25,14 +25,14 @@ const LoadMore = () => {
           .firestore()
           .collection("songs")
           .orderBy("created_at", "desc")
-          .limit(10)
+          .limit(8)
           .get();
         const nextdata = await firebase
           .firestore()
           .collection("songs")
           .orderBy("created_at", "desc")
           .startAfter(prevData.docs[prevData.docs.length - 1])
-          .limit(10)
+          .limit(8)
           .get();
         const newArr = nextdata.docs.map((x) => {
           return {
@@ -54,7 +54,7 @@ const LoadMore = () => {
             .collection("songs")
             .orderBy("created_at", "desc")
             .startAfter(lastCursor)
-            .limit(10)
+            .limit(8)
             .get();
           const newArr = nextData.docs.map((x) => {
             return {
@@ -76,7 +76,7 @@ const LoadMore = () => {
             .collection("songs")
             .orderBy("likes", "desc")
             .startAfter(lastCursor)
-            .limit(10)
+            .limit(8)
             .get();
           const newArr = nextData.docs.map((x) => {
             return {
@@ -98,7 +98,7 @@ const LoadMore = () => {
             .collection("songs")
             .orderBy("title", "asc")
             .startAfter(lastCursor)
-            .limit(10)
+            .limit(8)
             .get();
           const newArr = nextData.docs.map((x) => {
             return {

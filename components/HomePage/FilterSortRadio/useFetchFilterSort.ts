@@ -11,7 +11,7 @@ const useFetchFilterSort = () => {
       const songs = await db
         .collection("songs")
         .orderBy("created_at", "desc")
-        .limit(10)
+        .limit(8)
         .get();
       lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
@@ -37,7 +37,7 @@ const useFetchFilterSort = () => {
       const songs = await db
         .collection("songs")
         .orderBy("likes", "desc")
-        .limit(10)
+        .limit(8)
         .get();
       lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
@@ -63,7 +63,7 @@ const useFetchFilterSort = () => {
       const songs = await db
         .collection("songs")
         .orderBy("title", "asc")
-        .limit(10)
+        .limit(8)
         .get();
       lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
@@ -89,7 +89,7 @@ const useFetchFilterSort = () => {
       const songs = await db
         .collection("songs")
         .where("isReleased", "==", true)
-        .limit(10)
+        .limit(8)
         .get();
       lastCursorDispatch(songs.docs[songs.docs.length - 1]);
       songDispatch([
