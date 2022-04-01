@@ -31,7 +31,7 @@ const LoadMore = () => {
           .firestore()
           .collection("songs")
           .orderBy("created_at", "desc")
-          .startAfter(prevData.docs[prevData.docs.length - 1])
+          .startAfter(7)
           .limit(8)
           .get();
         const newArr = nextdata.docs.map((x) => {
