@@ -123,7 +123,7 @@ export async function getServerSideProps() {
   const data = await db
     .collection("songs")
     .orderBy("created_at", "desc")
-    .limit(10)
+    .limit(8)
     .get();
   return {
     props: {

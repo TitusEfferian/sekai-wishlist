@@ -6,8 +6,7 @@ import "firebase/firestore";
 
 const Edit = () => {
   const [showModal, setShowModal] = useState(false);
-  const { creator, title, id, isReleased } = useSongModal();
-  console.log(isReleased);
+  const { creator, title, id, video_url, isReleased } = useSongModal();
   return (
     <>
       <Button
@@ -29,7 +28,7 @@ const Edit = () => {
         <Form
           name="basic"
           initialValues={{ remember: true }}
-          onFinish={async ({ creator_update, title_update, isReleased }) => {
+          onFinish={async ({ creator_update, title_update, videourl_update, isReleased }) => {
             try {
               await firebase
                 .firestore()
@@ -39,6 +38,7 @@ const Edit = () => {
                   creator: creator_update,
                   title: title_update,
                   isReleased: isReleased === "true" ? true : false,
+                  video_url: videourl_update
                 });
               message.success("success update");
               setShowModal(false);
@@ -52,7 +52,7 @@ const Edit = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="creator_update"
+            label="Creator"
             name="creator_update"
             initialValue={creator}
             rules={[{ required: true, message: "creator" }]}
@@ -61,11 +61,21 @@ const Edit = () => {
           </Form.Item>
 
           <Form.Item
-            label="title_update"
+            label="Title"
             name="title_update"
             wrapperCol={{ offset: 1 }}
             initialValue={title}
             rules={[{ required: true, message: "title" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+          label="Video URL"
+          name="videourl_update"
+          initialValue={video_url}
+          wrapperCol={{ offset: 1 }}
+          rules={[{ required: true, message: "video_url" }]}
           >
             <Input />
           </Form.Item>
